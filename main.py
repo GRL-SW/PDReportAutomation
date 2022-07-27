@@ -36,15 +36,14 @@ def Gen_Report():
 
 if __name__ == '__main__':
     param_list = sys.argv
-
     Globals.initialize(param_list)
-    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    print(param_list)
     
     original_stdout = sys.stdout
-    # log_file = Globals.PROJECT_NAME + "_" + Globals.START_TIME
-    log_file = Globals.PROJECT_NAME + "_" + datetime.now().strftime('%Y%m%d_%H%M%S')
-    sys.stdout = Commonlib.PrintLog(log_file) 
+    # log_file = Globals.PROJECT_NAME + "_" + Globals.START_TIME 
+    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    print(param_list,":",len(param_list))
+    # for param in param_list:
+    #     print(param)
     Gen_Report()
     print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     
