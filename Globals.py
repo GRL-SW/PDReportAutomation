@@ -43,6 +43,7 @@ def initialize(param):
     global SOUP_LIST
     global START_TIME
     global LOG_FILE
+    global REPORT_INFO
 
     global TABLES
     global CURRENT_TABLE
@@ -58,8 +59,9 @@ def initialize(param):
     TEMPLATE_TYPE = param[4]
     PORT_NUM = param[5]
     TYPELIST = param[6].split("%")
+    REPORT_INFO = param[7].split(",")
     TEMPLATE_WORD_NAME = "\\\\192.168.2.104\\Public\\Software\\07_PDReportAutomation\\pd compliance new\\blank template\\" + TEMPLATE_TYPE
-    print(TEMPLATE_WORD_NAME)
+    # print(TEMPLATE_WORD_NAME)
     DATA_FILE = []
     SELECT_TABLES = []
     ALL_KEYWORDS = []

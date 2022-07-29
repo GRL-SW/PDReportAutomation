@@ -27,10 +27,11 @@ def close_all():
 
 def getTable(TypeList):
     # port_cnt = int(TypeList[5])
-    sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8";
-    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` in (856,857,858,859) "
+    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8";
+    sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  AND `Item_ID` in (877,878)"
     # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` BETWEEN 848 AND 859"
     relist = excute_SQL(sql)
+    print(relist)
     tables=[]
     del_tables = []
     get_table=True 
@@ -39,7 +40,7 @@ def getTable(TypeList):
         get_table=True
         noteList = table[6].split('/')
         # print(table)
-        if noteList[0] != Globals.PORT_NUM:
+        if noteList[0] != Globals.PORT_NUM and noteList[0] != '':
             # print("not get:port number different")
             get_table=False
         

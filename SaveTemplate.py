@@ -32,34 +32,34 @@ def save_table_content(word,template_id):
         text_list=[]
         print(i)
         max_col=0
-        if i == 14:
-            for r in range(0, len(table.rows)):
-                for c in range(0, len(table.rows[r].cells)):
-                    print(r,",",c,":",table.cell(r,c).text)
-                # if r == 0:
-                #     # sql="INSERT INTO `tables` (`Table_ID`,`Globals.CURRENT_TABLE`,`Template_ID`) VALUES ("+str(10000+i)+",\""+table.cell(0,0).text+"\",1)"
-                #     sql="INSERT INTO `tables` (`Table_Name`,`Table_word_id`,`Template_ID`) VALUES (\""+table.cell(0,0).text+"\","+str(i) + "," + str(template_id) +")"
-                #     DBProcess.excute_SQL(sql)
+        # if i == 14:
+        for r in range(0, len(table.rows)):
+        #     for c in range(0, len(table.rows[r].cells)):
+        #         print(r,",",c,":",table.cell(r,c).text)
+            if r == 0:
+                # sql="INSERT INTO `tables` (`Table_ID`,`Globals.CURRENT_TABLE`,`Template_ID`) VALUES ("+str(10000+i)+",\""+table.cell(0,0).text+"\",1)"
+                sql="INSERT INTO `tables` (`Table_Name`,`Table_word_id`,`Template_ID`) VALUES (\""+table.cell(0,0).text+"\","+str(i) + "," + str(template_id) +")"
+                DBProcess.excute_SQL(sql)
 
-                #     sql="SELECT * FROM `tables` ORDER BY `Table_ID` DESC LIMIT 0 , 1"
-                    
-                #     id = ((DBProcess.excute_SQL(sql))[0])[0]
-
-                # if len(table.rows[r].cells) > max_col:
-                #     max_col = len(table.rows[r].cells)
-
+                sql="SELECT * FROM `tables` ORDER BY `Table_ID` DESC LIMIT 0 , 1"
                 
-                # if r < 10:
-                #     for c in range(0, len(table.rows[r].cells)):
-                #         if c < 10:
-                #         # print(table.cell(r,c).text)
-                #             if table.cell(r,c).text != "":
-                #                 text_list.append(table.cell(r,c).text)
+                id = ((DBProcess.excute_SQL(sql))[0])[0]
 
-        # text = ','.join(text_list)
-        # sql="INSERT INTO `content` (`Content_Text`, `Content_Row`, `Content_Col`, `Table_ID`) VALUES (\"" + text + "\"," + str(len(table.rows)) + "," + str(max_col) + "," + str(id) + ")"
-        # DBProcess.excute_SQL(sql)
-        # text_list.clear()
+            if len(table.rows[r].cells) > max_col:
+                max_col = len(table.rows[r].cells)
+
+            
+            if r < 10:
+                for c in range(0, len(table.rows[r].cells)):
+                    if c < 10:
+                    # print(table.cell(r,c).text)
+                        if table.cell(r,c).text != "":
+                            text_list.append(table.cell(r,c).text)
+
+        text = ','.join(text_list)
+        sql="INSERT INTO `content` (`Content_Text`, `Content_Row`, `Content_Col`, `Table_ID`) VALUES (\"" + text + "\"," + str(len(table.rows)) + "," + str(max_col) + "," + str(id) + ")"
+        DBProcess.excute_SQL(sql)
+        text_list.clear()
         print("=======================================================")
 
 def del_old_data(template_ID):
@@ -107,13 +107,13 @@ if __name__ == '__main__':
     template_id = Commonlib.get_template_id(Globals.TEMPLATE_TYPE)
     print(template_id)
     DBProcess.connectDB()
-    # del_old_data(template_id)
+    del_old_data(template_id)
     DBProcess.close_all()
 
     word = GRLWord.Get_word(Globals.TEMPLATE_WORD_NAME)
     DBProcess.connectDB()
     save_table_content(word,template_id)
-    # add_tab(template_id)
+    add_tab(template_id)
     DBProcess.close_all()
 
     # DBProcess.connectDB()

@@ -8,9 +8,10 @@
 
 from datetime import datetime
 import Globals
-import DBProcess as DBProcess
-import Commonlib as Commonlib
+import DBProcess
+import Commonlib
 import GetValue
+import getCoverValue
 # import ValueScripts.Cover_Page as Cover_Page
 import os
 
@@ -81,8 +82,9 @@ def save_pos_value(word):
      DBProcess.close_all()
      
      for table in Globals.TABLES:
+          print(table)
           DBProcess.connectDB()
-          if table[0] > -1:
+          if table[0] > -1 and "Cover" not in table[1]:
             #    try:
                     Globals.CURRENT_TABLE = table[1]
                     Globals.PATH_KEY = table[2]
@@ -109,9 +111,17 @@ def save_pos_value(word):
 
                     print("Get Value End:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print("------------------------------------------------------------------------------")
-          DBProcess.close_all()
-            #    except Exception as e:
-            #         print("#############")
-            #         print(e)
-            #         print("#############")
-            #         pass 
+          elif "Cover" in table[1]:
+               print(table)
+               Globals.FIELDS = DBProcess.getFields(table[0])
+               getPos(table,Globals.FIELDS)
+               getCoverValue.getValue(Globals.FIELDS)
+          #    except Exception as e:
+          #         print("#############")
+          #         print(e)
+          #         print("#############")
+          #         pass   
+          DBProcess.close_all()   
+     return
+         
+            
