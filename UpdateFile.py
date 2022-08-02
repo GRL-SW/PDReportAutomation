@@ -146,35 +146,37 @@ def updateWord(word):
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A":
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-
+                        elif word.Get_CellValue(int(table_idx), int(row), int(col)) != "" and str(result)!= "":
+                            value = word.Get_CellValue(int(table_idx), int(row), int(col)) + "\n" + str(result)
+                            word.WritevValuetoTable(int(table_idx), int(row), int(col), str(value))
                     else:
-                        print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)),"V.S",str(result))
+                        # print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)),"V.S",str(result))
                         if word.Get_CellValue(int(table_idx), int(row), int(col)) == str(result):
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A" and str(result)=="PASS":
-                            print("Writing PASS")
+                            # print("Writing PASS")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A" and str(result)=="FAIL":
-                            print("Origin NA Writing FAIL")
+                            # print("Origin NA Writing FAIL")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "PASS" and str(result)=="N/A":
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "PASS" and str(result)=="FAIL":
-                            print("Origin PASS Writing FAIL")
+                            # print("Origin PASS Writing FAIL")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "FAIL" and str(result)=="PASS":
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "FAIL" and str(result)=="N/A":
                             continue
                         else:
-                            print("Writing Value")
+                            # print("Writing Value")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
                             print(word.Get_CellValue(int(table_idx), int(row), int(col)))
 
-                        print("========================================================================================")
+                        # print("========================================================================================")
                 
                 elif "Comment" in item_name:
                     if word.Get_CellValue(int(table_idx), int(row), int(col)) == "":

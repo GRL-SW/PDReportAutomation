@@ -15,13 +15,13 @@ import ItemScripts.Inrush as Inrush
 def get_html_value(data):
     
     if "Ellisys Explorer" in Globals.CURRENT_TABLE:
-        EllisysFunctions.get_value(data,Globals.DATA_FILE)
+        EllisysFunctions.get_value(data,Globals.DATA_FILE,Globals.SOUP_LIST)
     elif "Lecroy" in Globals.CURRENT_TABLE:
         LecroyFunctions.get_value(data,Globals.DATA_FILE)
     elif "C2" in Globals.CURRENT_TABLE:
         C2Functions.get_value(data,Globals.SOUP_LIST)
     elif "MQP" in Globals.CURRENT_TABLE:
-        MQPFunctions.get_value(data,Globals.SOUP_LIST)
+        MQPFunctions.get_value(data,Globals.DATA_FILE,Globals.SOUP_LIST)
     elif "Inrush" in Globals.CURRENT_TABLE:
         Inrush.get_value(data,Globals.DATA_FILE)
 

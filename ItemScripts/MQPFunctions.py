@@ -1,149 +1,66 @@
 # import Globals
 from bs4 import BeautifulSoup
 from datetime import datetime
+import Globals
 
-# def get_rawdata(soup):
-#     raw_data=[]
+def get_result(data,file_list):
+    for file in file_list:
+        print(file)
+        # with open(file, 'rb') as f:
+        #     html_doc = f.read()
+        
+        with open(file, 'rb') as f:
+            lines = f.readlines()
 
-#     tables = soup.find_all('table')
-#     if len(tables) < 4:
-#         return
-#     else:
-#         target_table = tables[3]
+        # soup = BeautifulSoup(html_doc, 'html.parser') 
+        # h4_list = soup.find_all("h4")
+        # h6_list = soup.find_all("h6")
 
-#     tr_list = target_table.find_all('tr')
-#     for tr in tr_list:
-#         print(tr.text.replace('\n',"###"))
+        # print(len(h4_list),":",len(h6_list))
 
+        h4_dict = {}
+        h6_dict = {}
+        for i,line in enumerate(lines):
+            if "h4" in str(line):
+                if str(line) not in h4_dict.keys():
+                    h4_dict[str(line)] = []
+                    
+                h4_dict[str(line)].append(i)
+
+                # h4_dict[i] = str(line)
+            if "h6" in str(line):
+                # h6_dict[i] = str(line)
+                if str(line) not in h6_dict.keys():
+                    h6_dict[str(line)] = []
+                    
+                h6_dict[str(line)].append(i)
+        keyword_line = -1
+        result_line = -1
+
+        for h4 in h4_dict:
+            if data[2] in h4:
+                # print(data[2])
+                keyword_line = h4_dict[h4]
+                if len(keyword_line) == 1:
+                    result_line = keyword_line[0]+1
+                break
+        if keyword_line != -1 and result_line != -1:
+            for h6 in h6_dict:
+                if result_line in h6_dict[h6]:
+                    if str(data[0]) in Globals.RESULT_DATA.keys():
+                        if "PASS" in h6:
+                            Globals.RESULT_DATA[str(data[0])] = "PASS"
+                    else:
+                        if "PASS" in h6:
+                            Globals.RESULT_DATA[str(data[0])] = "PASS"
+                        if "FAIL" in h6:
+                            Globals.RESULT_DATA[str(data[0])] = "FAIL"
     
-
-# def get_result(data,soup_list):
-#     # for i,soup in enumerate(soup_list):
-#     #     tables = soup.find_all('table')
+def get_value(data,file_list,soup_list):
+    if "Comment" in Globals.CURRENT_TABLE:
+        # get_comment(data,file_list)
+        Globals.RESULT_DATA[str(data[0])] = ""
+    else:
         
-#     #     if len(tables) < 4:
-
-#     #         continue
-#     #     else:
-#     #         target_table = tables[3]
-         
-#     #     tr_list = target_table.find_all('tr')
-#     #     # if data[0] == 55237:
-#     #     #     # print(target_table.text)
-#     #     #     for tr in tr_list:
-#     #     #         print(tr.text.replace("\n","###"))
-
-#     #     if data[2] in target_table.text:
-#     #         # print(i,":",data[2],":in")
-#     #         for tr in tr_list:
-#     #             # print(tr.text)
-#     #             # print(tr.text,":",data[2])
-#     #             if data[2] in tr.text:
-#     #                 if Globals.RESULT_DATA[str(data[0])] == "FAIL":
-#     #                     if "PASS" in tr.text:
-#     #                         Globals.RESULT_DATA[str(data[0])] = "PASS"
-#     #                 else:
-#     #                     if "PASS" in tr.text:
-#     #                         Globals.RESULT_DATA[str(data[0])] = "PASS"
-#     #                     elif "FAIL" in tr.text:
-#     #                         Globals.RESULT_DATA[str(data[0])] = "FAIL"
-#     #                 break
-#     #     else:
-#     #         # print(i,":",data[2],":out!!!!!!!")
-#     #         pass
-
-#     return
-
-# def chk_keyword(tr):
-#     stop_loop = False
-#     item_name = ""
-#     for keyword in Globals.ALL_KEYWORDS:
-#         # print(rd_list,":",keyword)
-#         if keyword.strip() in tr:
-#             stop_loop = True
-#             item_name = keyword
-#             break
-
-#     # print(stop_loop,":",item_name)
-
-#     return stop_loop,item_name
-
-# def get_comment(data,soup_list):
-#     comments = {}
-#     get_comment = False
-#     for i,soup in enumerate(soup_list):
-#         tables = soup.find_all('table')
-#         if len(tables) < 4:
-#             return
-#         else:
-#             target_table = tables[3]
-#         folder_name_list = Globals.DATA_FILE[i].split("\\")
-#         port_name = folder_name_list[len(folder_name_list)-3]
-
-#         tr_list = target_table.find_all('tr')
-#         for tr_idx,tr in enumerate(tr_list):
-#             if data[2] in tr.text:
-#                 if "FAIL" in tr.text:
-#                     get_comment = True
-#                     j=tr_idx
-#                     if port_name not in comments.keys():
-#                         comments[port_name] = []
-#                     while j < len(tr_list):
-#                         stop_loop = False
-#                         if j != tr_idx:
-#                             stop_loop,item_name = chk_keyword(tr_list[j].text)
-#                         print(stop_loop)
-#                         if stop_loop == True:
-#                             break  
-
-#                         if "FAIL" in tr_list[j].text and j != tr_idx:
-#                             stop_loop,item_name = chk_keyword(tr_list[j])
-#                             string = tr_list[j].text.replace("\n\xa0 ","").replace("FAIL  \n&nbsp","").replace("\n","")
-                            
-#                             print("FAIL:",string)
-
-#                             comments[port_name].append(string)
-#                         j = j + 1
-#                 else:
-#                     get_comment = False
-
-#     print(comments)
-
-#     if len(comments) > 0 and get_comment == True:
-#         string = ""
-#         for folder in comments:
-#             if "2 Port" in Globals.CURRENT_TABLE and string == "":
-#                 string = "(" + folder+ ")" + "\n".join(comments[folder])
-#             if "2 Port" in Globals.CURRENT_TABLE and string != "":
-#                 string = string + "\n" + "(" + folder+ ")" + "\n".join(comments[folder])
-#             elif string == "":
-#                 string = "\n".join(comments[folder])
-#             else:
-#                 string = string + "\n".join(comments[folder]) + "\n"
-
-        
-#         Globals.RESULT_DATA[str(data[0])] = "C2:" + string
-#     else:
-#         Globals.RESULT_DATA[str(data[0])] = ""
-
-
-#     return    
-
-
-# def get_value(data,soup_list):
-#     if "Comment" in Globals.CURRENT_TABLE:
-#         get_comment(data,soup_list)
-#     else:
-#         get_result(data,soup_list)
-
-if __name__ == '__main__':
-    file = r'\\192.168.2.104\Public\Software\07_PDReportAutomation\pd compliance new\2 port DRP\USB Power Delivery Compliance Test (Merged)\PA\MQP\Report_0C56_C1_2022-03-03-10-26-11_CTS_CUST.html'
-
-    with open(file, 'rb') as f:
-        html_doc = f.read()
-    soup = BeautifulSoup(html_doc, 'html.parser') 
-
-    h4list = soup.find_all("h4")
-
-    for h4 in h4list:
-        print(h4)
+        get_result(data,file_list)
+    return True
