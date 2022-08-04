@@ -107,13 +107,13 @@ if __name__ == '__main__':
     template_id = Commonlib.get_template_id(Globals.TEMPLATE_TYPE)
     print(template_id)
     DBProcess.connectDB()
-    # del_old_data(template_id)
+    del_old_data(template_id)
     DBProcess.close_all()
 
     word = GRLWord.Get_word(Globals.TEMPLATE_WORD_NAME)
     DBProcess.connectDB()
-    # save_table_content(word,template_id)
-    # add_tab(template_id)
+    save_table_content(word,template_id)
+    add_tab(template_id)
     DBProcess.close_all()
 
     # DBProcess.connectDB()

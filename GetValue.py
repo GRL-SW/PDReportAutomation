@@ -2,6 +2,7 @@ import Globals
 import Commonlib as Commonlib
 import ValueScripts.HtmlValue as HtmlValue
 import ValueScripts.PetrptValue as PetrptValue
+import ValueScripts.txtValue as txtValue
 from bs4 import BeautifulSoup
 
 def value_main(data_list,path):
@@ -22,13 +23,13 @@ def value_main(data_list,path):
                 for kw_idx in range(0,len(key_words)-1):
                     path_key = path_key + "/" + key_words[kw_idx]
 
-                print(path_key)
+                # print(path_key)
 
                 input_path = Commonlib.getPath(Globals.INPUT_PATH,path_key,Globals.ALL_FOLDER)
-                print(input_path)
+                # print(input_path)
                 for ip in input_path:
                     files = Commonlib.getTargetFile(ip,key_words[len(key_words)-1],Globals.CURRENT_TYPE)
-                    print(files)
+                    # print(files)
                     for f in files:
                         file_list.append(f)
                 # print(file_list)
@@ -43,8 +44,8 @@ def value_main(data_list,path):
             else:
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
                 
-            # for file in file_list:
-            #     print("file:",file)
+            for file in file_list:
+                print("file:",file)
             #     print("Global:",Globals.DATA_FILE)
 
             if Globals.DATA_FILE != file_list:
@@ -69,6 +70,9 @@ def value_main(data_list,path):
            
                 elif Globals.CURRENT_TYPE == "PETRPT":
                     PetrptValue.get_value(data,file_list)
+
+                elif Globals.CURRENT_TYPE == "TXT":
+                    txtValue.get_value(data,file_list)
 
             print("=====================================================================")
 

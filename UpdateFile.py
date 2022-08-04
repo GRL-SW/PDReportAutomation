@@ -181,6 +181,12 @@ def updateWord(word):
                 elif "Comment" in item_name:
                     if word.Get_CellValue(int(table_idx), int(row), int(col)) == "":
                         word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
+                    else:
+                        if result == "N/A":
+                            print("no update")
+                            continue
+                        else:
+                            word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
                 
                 else:
                     word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))

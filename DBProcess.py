@@ -27,9 +27,9 @@ def close_all():
 
 def getTable(TypeList):
     # port_cnt = int(TypeList[5])
-    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8";
+    sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8";
     # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  AND `Item_ID` in (879,880)"
-    sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` BETWEEN 879 AND 883"
+    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` BETWEEN 884 AND 888"
     relist = excute_SQL(sql)
     print(relist)
     tables=[]
