@@ -9,7 +9,7 @@ def value_main(data_list,path):
     current_sheet = ""
 
     for data in data_list:
-        # if data[0] == 55628:
+        # if data[0] == 56417:
             print(data[0],":",data[1])
             # reload = False
             file_list = []
@@ -44,8 +44,8 @@ def value_main(data_list,path):
             else:
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
                 
-            for file in file_list:
-                print("file:",file)
+            # for file in file_list:
+            #     print("file:",file)
             #     print("Global:",Globals.DATA_FILE)
 
             if Globals.DATA_FILE != file_list:
@@ -56,7 +56,7 @@ def value_main(data_list,path):
             else:
                 reload = False
 
-            # # ======= [Getting Value] =======
+            # ======= [Getting Value] =======
             if len(file_list) != 0:
                 # print("in")
                 if Globals.CURRENT_TYPE == "HTML":
