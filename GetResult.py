@@ -19,7 +19,7 @@ def update_pos(table, cols, tab_idx, tab, begin_idx=0):
      cur_row = int((table[5].split(","))[0])
      cur_cell = int((table[5].split(","))[1])
      for i,col in enumerate(cols):
-          # print(col[0],":",begin_idx,"/",i,":",str(tab_idx[tab]) , "," , str (cur_row) , "," , str(cur_cell))
+          # # print(col[0],":",begin_idx,"/",i,":",str(tab_idx[tab]) , "," , str (cur_row) , "," , str(cur_cell))
           if i >= begin_idx:
                pos = str(tab_idx[tab]) + "," + str (cur_row) + "," + str(cur_cell)
                sql = "UPDATE `files` SET `File_Pos` = \"" + pos + "\" WHERE `File_ID` = " + str(col[0])
@@ -38,7 +38,7 @@ def getPos(table, cols):
      table_keys = table[4].split(",")
      template_id = Commonlib.get_template_id(Globals.TEMPLATE_TYPE)
      tab_idx = Commonlib.findTable(table_keys,template_id)
-     print("table:",tab_idx)
+     # print("table:",tab_idx)
      begin_idx = 0
      for idx in tab_idx:
           if idx not in Globals.SELECT_TABLES:
@@ -64,14 +64,14 @@ def get_file_list(path,table):
                     file_list.append(os.path.join(p,f)) 
 
      if len(file_list) != 0:
-          # print(file_list)
+          # # print(file_list)
           adjust_path = adjustPath(table,file_list)
-          print("get_file_list_adjust path:",adjust_path)
+          # print("get_file_list_adjust path:",adjust_path)
           if len(adjust_path) != 0:
                path = adjust_path
           else:
                return []
-          # print("path:",path)
+          # # print("path:",path)
           return path
      else:
           return file_list
@@ -82,7 +82,7 @@ def save_pos_value(word):
      DBProcess.close_all()
      
      for table in Globals.TABLES:
-          print(table)
+          # print(table)
           DBProcess.connectDB()
           if table[0] > -1 and "Cover" not in table[1]:
             #    try:
@@ -93,7 +93,7 @@ def save_pos_value(word):
                     getPos(table,Globals.FIELDS)
 
                     path = Commonlib.getPath(Globals.INPUT_PATH,table[2], Globals.ALL_FOLDER)
-                    print(path)
+                    # print(path)
 
                     Globals.CURRENT_TYPE = table[3]
 
@@ -112,14 +112,14 @@ def save_pos_value(word):
                     print("Get Value End:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print("------------------------------------------------------------------------------")
           elif "Cover" in table[1]:
-               print(table)
+               # print(table)
                Globals.FIELDS = DBProcess.getFields(table[0])
                getPos(table,Globals.FIELDS)
                getCoverValue.getValue(Globals.FIELDS)
           #    except Exception as e:
-          #         print("#############")
-          #         print(e)
-          #         print("#############")
+          #         # print("#############")
+          #         # print(e)
+          #         # print("#############")
           #         pass   
           DBProcess.close_all()   
      return

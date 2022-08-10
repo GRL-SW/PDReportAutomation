@@ -11,7 +11,7 @@ def get_raw_data(soup):
     for tab in tables:
         tr_list = tab.find_all('tr')
         cols = (tr_list[0].text).split('\n')
-        # print(cols)
+        # # print(cols)
         for i in range(1,len(cols)-1):
             target_index.append(i)
 
@@ -19,11 +19,11 @@ def get_raw_data(soup):
 
         for t in tr_list[1:]:
             string = ""
-            # print(t.find_all('td'))
+            # # print(t.find_all('td'))
             
             td_list = t.find_all('td')
-            if len(td_list) < 3:
-                print(td_list)
+            # if len(td_list) < 3:
+                # print(td_list)
             for i in range(0,len(target_index)):
                 
                 if i == len(target_index) - 1:
@@ -37,13 +37,13 @@ def chk_keyword(rd_list):
     stop_loop = False
     item_name = ""
     for keyword in Globals.ALL_KEYWORDS:
-        # print(rd_list,":",keyword)
+        # # print(rd_list,":",keyword)
         if keyword.strip() in rd_list[0].strip():
             stop_loop = True
             item_name = rd_list[0]
             break
 
-    # print(stop_loop,":",item_name)
+    # # print(stop_loop,":",item_name)
 
     return stop_loop,item_name
 
@@ -59,8 +59,8 @@ def get_comment(data,file_list):
 
         folder_name_list = file.split("\\")
         folder_name = folder_name_list[len(folder_name_list)-2]
-        # print(raw_data)
-        print(file,":",data[2])
+        # # print(raw_data)
+        # print(file,":",data[2])
         for i,rd in enumerate(raw_data):
             rd_list = rd.split("//")
             if data[2] in rd_list[0]:
@@ -86,7 +86,7 @@ def get_comment(data,file_list):
                             else:
                                 string = rd_list_tmp[2]
 
-                            print("Fail:",string)
+                            # print("Fail:",string)
 
                             comments[folder_name].append(string)
                         elif rd_list[1] == "N/A" and "N/A" in raw_data[j]:
@@ -97,7 +97,7 @@ def get_comment(data,file_list):
                             else:
                                 string = rd_list_tmp[2]
 
-                            print("N/A:",string)
+                            # print("N/A:",string)
                             comments[folder_name].append(string)
                         
                             
@@ -106,15 +106,15 @@ def get_comment(data,file_list):
                 else:
                     result.append("PASS")        
     if len(comments) != 0:
-        # print(comments)
+        # # print(comments)
         string = ""
         for folder in comments:
-            # print(data[0],":",folder,":",comments[folder])
+            # # print(data[0],":",folder,":",comments[folder])
             if string == "":
                 string = folder + ":" + "\n".join(comments[folder])
             else:
                 string = string + '\n' + folder + ":" + "\n".join(comments[folder])
-        # print(string)
+        # # print(string)
         if "USB Power Delivery Compliance Test Merged" in Globals.CURRENT_TABLE:
                 string = "LeCroy -" + string
         Globals.RESULT_DATA[str(data[0])] = string
@@ -128,12 +128,12 @@ def get_comment(data,file_list):
 
 def get_result(data,file_list):
     for file in file_list:
-        print(file)
+        # print(file)
         with open(file, 'r', encoding='utf-8', errors="ignore") as f:
             html_doc = f.read()
         soup = BeautifulSoup(html_doc, 'html.parser')
         raw_data = get_raw_data(soup)
-        # print(raw_data)
+        # # print(raw_data)
 
         for rd in raw_data:
             rd_list = rd.split("//")

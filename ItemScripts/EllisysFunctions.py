@@ -18,20 +18,20 @@ def set_comments_key(comments,folder_name):
 
 def get_result(data,soup_list):
     key = data[2].split(",")
-    print(data[2])
+    # print(data[2])
     for soup in soup_list:
         tables = soup.find_all('table')
 
         summary = []
         details = []
         for t in tables:
-            # print(t.text)
+            # # print(t.text)
             tr_list = t.find_all('tr')
-            # print(t.text,":","USB Type-C Functional Tests" in t.text)
-            # print(Globals.CURRENT_TABLE,":","Type-C Functional Testing" in Globals.CURRENT_TABLE)
+            # # print(t.text,":","USB Type-C Functional Tests" in t.text)
+            # # print(Globals.CURRENT_TABLE,":","Type-C Functional Testing" in Globals.CURRENT_TABLE)
 
-            # print("Merged USB PD" in t.text)
-            # print("USB Power Delivery Compliance Test Merged" in Globals.CURRENT_TABLE)
+            # # print("Merged USB PD" in t.text)
+            # # print("USB Power Delivery Compliance Test Merged" in Globals.CURRENT_TABLE)
 
             if "USB Type-C Functional Tests" in t.text and "Type-C Functional Testing" in Globals.CURRENT_TABLE:
                 for tr in tr_list:
@@ -50,13 +50,13 @@ def get_result(data,soup_list):
                     if key[0] in tr.text:
                         summary.append(tr.text)
             elif key[0] in t.text:
-                # print("in")
+                # # print("in")
                 for tr in tr_list:
-                    # print(tr.text)
+                    # # print(tr.text)
                     details.append(tr.text)
 
-        # print("Summary:",summary)
-        # print("Details:",details)
+        # # print("Summary:",summary)
+        # # print("Details:",details)
 
         if "[Info Only]" in data[2] and "Comment" not in Globals.CURRENT_TABLE:
             Globals.RESULT_DATA[str(data[0])] = "Info Only"
@@ -67,13 +67,16 @@ def get_result(data,soup_list):
                 Globals.RESULT_DATA[str(data[0])] = "PASS"
         else:
             if "Passed" in "#".join(summary):
+                # # print("PASS")
                 Globals.RESULT_DATA[str(data[0])] = "PASS"
             elif "Not Applicable" in "#".join(summary):
-               Globals.RESULT_DATA[str(data[0])] = "N/A"
+                # # print("NA")
+                Globals.RESULT_DATA[str(data[0])] = "N/A"
             elif "Failed" in "#".join(summary):
+                # # print("FAIL")
                 Globals.RESULT_DATA[str(data[0])] = "FAIL"
-                    
             elif "Error" in "#".join(summary):
+                # # print("FAIL")
                 Globals.RESULT_DATA[str(data[0])] = "FAIL"
 
 def get_comment(data,file_list):
@@ -81,7 +84,7 @@ def get_comment(data,file_list):
     comments = {}
 
     for idx,file in enumerate(file_list):
-        print(file)
+        # print(file)
         folder_name_list = file.split("\\")
         folder_name = folder_name_list[len(folder_name_list)-2]
         
@@ -91,13 +94,13 @@ def get_comment(data,file_list):
         summary = []
         details = []
         for t in tables:
-            # print(t.text)
+            # # print(t.text)
             tr_list = t.find_all('tr')
-            # print(t.text,":","USB Type-C Functional Tests" in t.text)
-            # print(Globals.CURRENT_TABLE,":","Type-C Functional Testing" in Globals.CURRENT_TABLE)
+            # # print(t.text,":","USB Type-C Functional Tests" in t.text)
+            # # print(Globals.CURRENT_TABLE,":","Type-C Functional Testing" in Globals.CURRENT_TABLE)
 
-            # print("Merged USB PD" in t.text)
-            # print("USB Power Delivery Compliance Test Merged" in Globals.CURRENT_TABLE)
+            # # print("Merged USB PD" in t.text)
+            # # print("USB Power Delivery Compliance Test Merged" in Globals.CURRENT_TABLE)
 
             if "USB Type-C Functional Tests" in t.text and "Type-C Functional Testing" in Globals.CURRENT_TABLE:
                 for tr in tr_list:
@@ -116,13 +119,13 @@ def get_comment(data,file_list):
                     if key[0] in tr.text:
                         summary.append(tr.text)
             elif key[0] in t.text:
-                # print("in")
+                # # print("in")
                 for tr in tr_list:
-                    # print(tr.text)
+                    # # print(tr.text)
                     details.append(tr.text)
 
-        # print("Summary:",summary)
-        # print("Details:",details)
+        # # print("Summary:",summary)
+        # # print("Details:",details)
 
         if "Passed" in "#".join(summary):
             Globals.RESULT_DATA[str(data[0])] = ""
@@ -142,12 +145,12 @@ def get_comment(data,file_list):
             comments = get_comments(details,comments,folder_name,"FAILED")
 
     if "Comment" in Globals.CURRENT_TABLE:
-        print("Update Comment")
+        # print("Update Comment")
         if len(comments) != 0:
-            # print(comments)
+            # # print(comments)
             string = ""
             for folder in comments:
-                # print(data[0],":",folder,":",comments[folder])
+                # # print(data[0],":",folder,":",comments[folder])
                 if "Type-C Functional Testing" in Globals.CURRENT_TABLE:
                     if string == "":
                         string = folder + ":" + "\n".join(comments[folder])
@@ -158,7 +161,7 @@ def get_comment(data,file_list):
                         string = "Ellisys" + ":" + "\n".join(comments[folder])
                     else:
                         string = string + '\n' + folder + ":" + "\n".join(comments[folder])
-            # print(string)
+            # # print(string)
 
             Globals.RESULT_DATA[str(data[0])] = string
         else:

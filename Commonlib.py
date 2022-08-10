@@ -63,51 +63,51 @@ def adjustValueUnit(string, origin_unit, convert_unit, length=2):
     origin_unit = origin_unit.lower()
     convert_unit = convert_unit.lower()
 
-    # print(origin_unit," v.s ",convert_unit)
-    # print("µs".encode('utf-8'))
-    # print(origin_unit.encode('utf-8'))
-    # print(origin_unit == "ns")
-    # print(convert_unit == "μs")
-    # print(is_float(string) == True)
+    # # print(origin_unit," v.s ",convert_unit)
+    # # print("µs".encode('utf-8'))
+    # # print(origin_unit.encode('utf-8'))
+    # # print(origin_unit == "ns")
+    # # print(convert_unit == "μs")
+    # # print(is_float(string) == True)
 
     # k x m µ n p f
 
     if is_float(string) == True:
         if origin_unit == "mv" and convert_unit == "v":
-            print("mV to V")
+            # print("mV to V")
             num = round(float(string)/1000, length)
         elif origin_unit == "v" and convert_unit == "mv":
-            print("V to mV")
+            # print("V to mV")
             num = round(float(string)*1000, length)
         elif origin_unit == "µv" and convert_unit == "mv":
-            print("µV to mV")
+            # print("µV to mV")
             num = round(float(string)/1000, length)
         elif origin_unit == "ms" and convert_unit == "µs":
-            print("ms to μs")
+            # print("ms to μs")
             num = round(float(string)*1000, length)
         elif origin_unit == "ns" and convert_unit == "μs":
-            print("ns to μs")
+            # print("ns to μs")
             num = round(float(string)/1000, length)
         elif origin_unit == "µs" and convert_unit == "ms":
-            print("µs to ms")
+            # print("µs to ms")
             num = round(float(string)/1000, length)
         elif origin_unit == "µs" and convert_unit == "ns":
-            print("µs to ns")
+            # print("µs to ns")
             num = round(float(string)*1000, length)
         elif origin_unit == "ps" and convert_unit == "fs":
-            print("ps to fs")
+            # print("ps to fs")
             num = round(float(string)*1000, length)
         elif origin_unit == "ns" and convert_unit == "µs":
-            print("ns to µs")
+            # print("ns to µs")
             num = round(float(string)/1000, length)
         elif "kppm" in origin_unit and "ppm" in convert_unit:
-            print("kppm to ppm")
+            # print("kppm to ppm")
             num = round(float(string)*1000, length)
         elif origin_unit == "?s" and convert_unit == "ns":
-            print("?s to ns")
+            # print("?s to ns")
             num = float(string)*1000
         elif origin_unit == "繕s" and convert_unit == "ns":
-            print("繕s to ns")
+            # print("繕s to ns")
             num = float(string)*1000
         else:
             return format(float(string), '.2f')
@@ -136,28 +136,28 @@ def getTargetFile(path, file_key, filetype):
     pass_cnt = len(keys)
     return_list = []
     for file in files:
-        # print(file)
+        # # print(file)
         key_in_file = 0
         for key in keys:
-            # print(key)
+            # # print(key)
             key = key.strip()
             if key in file:
-                # print("in1")
+                # # print("in1")
                 key_in_file = key_in_file + 1
             elif key.upper() in file:
-                # print("in2")
+                # # print("in2")
                 if key == "png" or key == "xlsx":
-                    # print("in2")
+                    # # print("in2")
                     key_in_file = key_in_file + 1
                 elif "Sideband" in Globals.CURRENT_TABLE: 
-                    # print("in3")               
+                    # # print("in3")               
                     key_in_file = key_in_file + 1
             elif "Sideband" in Globals.CURRENT_TABLE:
-                # print("Upper case:",key.upper(),",",file.upper())
+                # # print("Upper case:",key.upper(),",",file.upper())
                 if key.upper() in file.upper():     
-                    # print("in3")               
+                    # # print("in3")               
                     key_in_file = key_in_file + 1
-        # print(key_in_file)
+        # # print(key_in_file)
         if key_in_file == pass_cnt:
             if filetype == "IMAGE":
                 if file.endswith("jpg") or file.endswith("JPG") or file.endswith("png") or file.endswith("PNG"):
@@ -177,20 +177,20 @@ def getPath(input_path,string, allFolder):
     input_path = input_path + "\\"
     for folder in allFolder:
         folder_list = (folder.split(input_path)[1]).split("\\")
-        # print(folder_list)
+        # # print(folder_list)
         if allFolder[folder] == key_len:
             cnt_tmp = 0
             for i,key in enumerate(path_key):
                 if key in folder_list[i]:
-                    # print(key,":",folder)
+                    # # print(key,":",folder)
                     cnt_tmp = cnt_tmp + 1
                 elif key in str(folder_list[i]).upper():
                 # elif key.upper() in str(folder_list[i]).upper():
-                    # print(key,":",folder)
+                    # # print(key,":",folder)
                     cnt_tmp = cnt_tmp + 1
 
             if cnt_tmp == key_len:
-                # print(folder)
+                # # print(folder)
                 return_Path.append(folder)
     return return_Path
 
@@ -214,15 +214,15 @@ def findTable(values,template_id):
     select_tables = "SELECT * FROM `tables` where `Template_ID` = " + str(template_id)
     Table_list=DBProcess.excute_SQL(select_tables)
     for table in Table_list:
-        # print(table[0])
+        # # print(table[0])
         find_text = "SELECT * FROM `content` WHERE `Table_ID` = " + str(table[0])
         text_list=DBProcess.excute_SQL(find_text)
         is_find = True
         for text in text_list:
-            # print("text:",text)
+            # # print("text:",text)
             for v in values:
-                # print("v:",v)
-                # print(v in text_list)
+                # # print("v:",v)
+                # # print(v in text_list)
                 if text[1].find(v.strip()) == -1 or table[2] in result_table:
                     is_find=False
         if is_find == True:
@@ -253,7 +253,7 @@ def get_reg_result_string(rule,string):
 class PrintLog(object):
     def __init__(self,file):
         self.console = sys.stdout
-        print(file)
+        # print(file)
         file_name = r'' + Globals.FINAL_PATH + "\\log\\PD\\log_" + file + ".txt"
         self.log_file = open(file_name, "w+", encoding='utf-8')
 
@@ -272,7 +272,7 @@ def save_all_folder():
         path_heirarchy = len(((ele[0].split(Globals.INPUT_PATH)[1].split("\\"))))-1
         if Globals.INPUT_PATH in ele[0] and path_heirarchy >= 1:
             Globals.ALL_FOLDER[ele[0]] = path_heirarchy
-            # print(ele[0])
+            # # print(ele[0])
         # elif info_folder in ele[0]:
         #     Globals.ALL_FOLDER[ele[0]] = -1
 

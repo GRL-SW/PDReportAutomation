@@ -29,14 +29,14 @@ def build_info(pure_text,data):
             if "Pass - " in text or "FAIL - " in text and data[2] in text:
                 summary_info = text
     
-    # print("-----DETAIL-----")           
+    # # print("-----DETAIL-----")           
     # for text in detail_info:
-    #     print(text)
+    #     # print(text)
 
-    # print("-----SUMMARY-----")
-    # print(summary_info)
+    # # print("-----SUMMARY-----")
+    # # print(summary_info)
 
-    # print("***************************************************")
+    # # print("***************************************************")
 
     return detail_info,summary_info
 
@@ -64,11 +64,11 @@ def get_result(data,file_list):
     result_list = []
     summary_get = False
     for file in file_list:
-        # print(file)
+        # # print(file)
         pure_text = get_pure_text(file)
         result = "N/A"
         detail_info,summary_info = build_info(pure_text,data)
-        print("summary:",summary_info)
+        # print("summary:",summary_info)
         
         if "Pass" in summary_info:
             if chk_pass_result(detail_info):
@@ -79,7 +79,7 @@ def get_result(data,file_list):
         if result != "N/A":
             result_list.append(result)
 
-    print(result_list)
+    # print(result_list)
 
     if len(result_list) == 0:
         return
@@ -105,7 +105,7 @@ def get_comment(data,file_list):
     insert_msg = True
 
     for file in file_list:
-        print(file)
+        # print(file)
         pure_text = get_pure_text(file)
         result = "N/A"
         detail_info,summary_info = build_info(pure_text,data)
@@ -113,7 +113,7 @@ def get_comment(data,file_list):
 
         if "FAIL" in summary_info:
             re_fail_msg = list(set(fail_msg(detail_info)))
-            print("re:",re_fail_msg)
+            # print("re:",re_fail_msg)
 
         if len(re_fail_msg) == 0:
             msg = []
@@ -127,7 +127,7 @@ def get_comment(data,file_list):
                 else:
                     string = '\n'.join(re_fail_msg)
                     insert_msg = chk_insert(msg,string)
-                    print("insert_msg:",insert_msg)
+                    # print("insert_msg:",insert_msg)
             else:
                 string = '\n'.join(re_fail_msg)
 
@@ -136,7 +136,7 @@ def get_comment(data,file_list):
             else:
                 insert_msg = True
     
-    print("msg:",msg)
+    # print("msg:",msg)
 
     if len(msg) == 0:
         Globals.RESULT_DATA[str(data[0])] = ""

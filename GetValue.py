@@ -9,8 +9,8 @@ def value_main(data_list,path):
     current_sheet = ""
 
     for data in data_list:
-        # if data[0] == 56417:
-            print(data[0],":",data[1])
+        # if data[0] == 56239:
+            # print(data[0],":",data[1])
             # reload = False
             file_list = []
             # sheet=""
@@ -23,16 +23,16 @@ def value_main(data_list,path):
                 for kw_idx in range(0,len(key_words)-1):
                     path_key = path_key + "/" + key_words[kw_idx]
 
-                # print(path_key)
+                # # print(path_key)
 
                 input_path = Commonlib.getPath(Globals.INPUT_PATH,path_key,Globals.ALL_FOLDER)
-                # print(input_path)
+                # # print(input_path)
                 for ip in input_path:
                     files = Commonlib.getTargetFile(ip,key_words[len(key_words)-1],Globals.CURRENT_TYPE)
-                    # print(files)
+                    # # print(files)
                     for f in files:
                         file_list.append(f)
-                # print(file_list)
+                # # print(file_list)
 
             elif len(path) > 1:
                 for p in path:
@@ -45,11 +45,11 @@ def value_main(data_list,path):
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
                 
             # for file in file_list:
-            #     print("file:",file)
-            #     print("Global:",Globals.DATA_FILE)
+            #     # print("file:",file)
+            #     # print("Global:",Globals.DATA_FILE)
 
             if Globals.DATA_FILE != file_list:
-                # print("Reload data")
+                # # print("Reload data")
                 reload = True
                 Globals.DATA_FILE = file_list 
                 Globals.SOUP_LIST.clear()
@@ -58,7 +58,7 @@ def value_main(data_list,path):
 
             # ======= [Getting Value] =======
             if len(file_list) != 0:
-                # print("in")
+                # # print("in")
                 if Globals.CURRENT_TYPE == "HTML":
                     if reload == True:
                         for file in file_list:
@@ -74,5 +74,5 @@ def value_main(data_list,path):
                 elif Globals.CURRENT_TYPE == "TXT":
                     txtValue.get_value(data,file_list)
 
-            print("=====================================================================")
+            # print("=====================================================================")
 

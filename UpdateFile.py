@@ -34,7 +34,7 @@ def setStyle(word, style):
 #     del_table_idx_db = []
 #     tables = word.ww.tables
 
-#     # print(Globals.DELETE_TABLES)
+#     # # print(Globals.DELETE_TABLES)
 
 #     for item in Globals.DELETE_TABLES:
 #         table_idx = item[8].split(",")
@@ -42,11 +42,11 @@ def setStyle(word, style):
 #             del_table_idx_db.append(idx)
 #     del_table_idx_db = list(set(del_table_idx_db))
 
-#     # print(del_table_idx_db)
+#     # # print(del_table_idx_db)
 
 #     for table in del_table_idx_db:
 #         sql = "SELECT `Table_word_id` FROM `tables` WHERE `Table_ID` = " + str(table)
-#         # print(sql)
+#         # # print(sql)
 #         return_list = DBProcess.excute_SQL(sql)
 #         del_table.append(return_list[0][0])
 
@@ -66,7 +66,7 @@ def setStyle(word, style):
 #         sql_result = DBProcess.excute_SQL(sql)
 #         if len(sql_result) == 1:
 #             pos = sql_result[0][1].split(",")
-#             # print(int(idx),",",pos)
+#             # # print(int(idx),",",pos)
 #             table_idx = pos[0]
 #             if current_table_idx != table_idx:
 #                 current_table_idx = table_idx
@@ -80,7 +80,7 @@ def setStyle(word, style):
 #         unique_set = set(deleted_rows[idx])
 #         unique_list = list(unique_set)
 #         unique_list.sort(reverse = True)
-#         # print(idx,":",unique_list)
+#         # # print(idx,":",unique_list)
 #         for row in unique_list:
 #             word.delerow(int(idx),int(row))
     
@@ -90,14 +90,14 @@ def setStyle(word, style):
 def updateWord(word):
     for idx in Globals.RESULT_DATA:
         sql = "SELECT `File_ID`,`File_Pos`,`Style_ID`, `File_Name`, `Item_ID` FROM `files` WHERE `File_ID`=" + str(idx)
-        # print(sql)
+        # # print(sql)
         sql_result = DBProcess.excute_SQL(sql)
-        # print("sql result:",sql_result)
+        # # print("sql result:",sql_result)
 
         if len(sql_result) == 1:
             
             pos = sql_result[0][1].split(",")
-            # print(int(idx),",",pos)
+            # # print(int(idx),",",pos)
             table_idx = pos[0]
             row = pos[1]
             col = pos[2]
@@ -106,9 +106,9 @@ def updateWord(word):
             item_name = (DBProcess.excute_SQL(sql))[0][0]
             result = Globals.RESULT_DATA[idx]
 
-            # print(int(table_idx),",", int(row),",", int(col),":",result)
+            # # print(int(table_idx),",", int(row),",", int(col),":",result)
 
-            # print(int(table_idx),",", item_name)
+            # # print(int(table_idx),",", item_name)
 
             style_sql=""
             if result == "N/A" and "Cover" not in item_name:
@@ -135,55 +135,63 @@ def updateWord(word):
                 # write png
                 word.InsertPNGtoWord(int(table_idx), int(row), int(col),[result])   
             else:
-                # print("not image")
+                # # print("not image")
                 # N/A PASS,N/A FAIL
                 if "USB Power Delivery Compliance Test Merged" in item_name:
                     if "Comment" in item_name:
-                        print("Comment")
-                        print(int(table_idx),",", int(row),",", int(col),":",result)
-                        print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)))
-                        if word.Get_CellValue(int(table_idx), int(row), int(col)) == "":
-                            word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
+                        # print("Comment")
+                        # print(int(table_idx),",", int(row),",", int(col),":",result)
+                        # print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)))
+                        
+                        if result == "N/A":
+                                continue
+                        elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "":
+                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A":
-                            word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
+                            continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) != "" and str(result)!= "":
                             value = word.Get_CellValue(int(table_idx), int(row), int(col)) + "\n" + str(result)
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(value))
                     else:
-                        # print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)),"V.S",str(result))
+                        # # print(idx,":",word.Get_CellValue(int(table_idx), int(row), int(col)),"V.S",str(result))
                         if word.Get_CellValue(int(table_idx), int(row), int(col)) == str(result):
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A" and str(result)=="PASS":
-                            # print("Writing PASS")
+                            # # print("Writing PASS")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "N/A" and str(result)=="FAIL":
-                            # print("Origin NA Writing FAIL")
+                            # # print("Origin NA Writing FAIL")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "PASS" and str(result)=="N/A":
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "PASS" and str(result)=="FAIL":
-                            # print("Origin PASS Writing FAIL")
+                            # # print("Origin PASS Writing FAIL")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "FAIL" and str(result)=="PASS":
                             continue
                         elif word.Get_CellValue(int(table_idx), int(row), int(col)) == "FAIL" and str(result)=="N/A":
                             continue
                         else:
-                            # print("Writing Value")
+                            # # print("Writing Value")
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
-                            print(word.Get_CellValue(int(table_idx), int(row), int(col)))
+                            # # print(word.Get_CellValue(int(table_idx), int(row), int(col)))
 
-                        # print("========================================================================================")
+                        # # print("========================================================================================")
                 
                 elif "Comment" in item_name:
+                    # # print("Comment")
                     if word.Get_CellValue(int(table_idx), int(row), int(col)) == "":
-                        word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
+                        if result == "N/A":
+                            # # print("no update")
+                            continue
+                        else:
+                            word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
                     else:
                         if result == "N/A":
-                            print("no update")
+                            # # print("no update")
                             continue
                         else:
                             word.WritevValuetoTable(int(table_idx), int(row), int(col), str(result))
@@ -193,11 +201,11 @@ def updateWord(word):
 
 
 
-    # print("Delete row:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # # print("Delete row:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # word = delete_rows(word)
-    # print("Delete Tables:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # # print("Delete Tables:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     # word = deTables(word)
     
-    print("Save file:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # print("Save file:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     word.SaveAs(Globals.REPORT_NAME)
     return

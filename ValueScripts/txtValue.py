@@ -25,14 +25,14 @@ def test_result(pure_text,keyword):
             key_line = i
             result = pure_text[i+1]
 
-    print("Result:",result)
+    # print("Result:",result)
 
     return result
 
 def get_result(data,file_list):
     
     for file in file_list:
-        print(file)
+        # print(file)
         result_list = []
         result = "N/A"
        
@@ -66,7 +66,7 @@ def fail_msg(file_list,data):
     msg_list = []
     fail_msg = []
     keywords = data[2].split(",")
-    # print(keywords[1],":",keywords[2])
+    # # print(keywords[1],":",keywords[2])
     for file in file_list:
         pure_text = get_pure_text(file)
         if "2 Port" in Globals.CURRENT_TABLE:
@@ -88,7 +88,7 @@ def fail_msg(file_list,data):
 def get_comment(data,file_list):
         
     for file in file_list:
-        print(file)
+        # print(file)
         result_list = []
         result = "N/A"
        
@@ -100,7 +100,7 @@ def get_comment(data,file_list):
         if result != "N/A":
             result_list.append(result)
 
-    print(result_list)
+    # print(result_list)
 
     if len(result_list) == 0:
             return

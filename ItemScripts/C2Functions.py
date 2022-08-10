@@ -12,8 +12,8 @@ def get_rawdata(soup):
         target_table = tables[3]
 
     tr_list = target_table.find_all('tr')
-    for tr in tr_list:
-        print(tr.text.replace('\n',"###"))
+    # for tr in tr_list:
+        # print(tr.text.replace('\n',"###"))
 
     
 
@@ -29,15 +29,15 @@ def get_result(data,soup_list):
          
         tr_list = target_table.find_all('tr')
         # if data[0] == 55237:
-        #     # print(target_table.text)
+        #     # # print(target_table.text)
         #     for tr in tr_list:
-        #         print(tr.text.replace("\n","###"))
+        #         # print(tr.text.replace("\n","###"))
 
         if data[2] in target_table.text:
-            # print(i,":",data[2],":in")
+            # # print(i,":",data[2],":in")
             for tr in tr_list:
-                # print(tr.text)
-                # print(tr.text,":",data[2])
+                # # print(tr.text)
+                # # print(tr.text,":",data[2])
                 if data[2] in tr.text:
                     if Globals.RESULT_DATA[str(data[0])] == "FAIL":
                         if "PASS" in tr.text:
@@ -49,7 +49,7 @@ def get_result(data,soup_list):
                             Globals.RESULT_DATA[str(data[0])] = "FAIL"
                     break
         else:
-            # print(i,":",data[2],":out!!!!!!!")
+            # # print(i,":",data[2],":out!!!!!!!")
             pass
 
     return
@@ -58,13 +58,13 @@ def chk_keyword(tr):
     stop_loop = False
     item_name = ""
     for keyword in Globals.ALL_KEYWORDS:
-        # print(rd_list,":",keyword)
+        # # print(rd_list,":",keyword)
         if keyword.strip() in tr:
             stop_loop = True
             item_name = keyword
             break
 
-    # print(stop_loop,":",item_name)
+    # # print(stop_loop,":",item_name)
 
     return stop_loop,item_name
 
@@ -92,7 +92,7 @@ def get_comment(data,soup_list,):
                         stop_loop = False
                         if j != tr_idx:
                             stop_loop,item_name = chk_keyword(tr_list[j].text)
-                        print(stop_loop)
+                        # print(stop_loop)
                         if stop_loop == True:
                             break  
 
@@ -100,14 +100,14 @@ def get_comment(data,soup_list,):
                             stop_loop,item_name = chk_keyword(tr_list[j])
                             string = tr_list[j].text.replace("\n\xa0 ","").replace("FAIL  \n&nbsp","").replace("\n","")
                             
-                            print("FAIL:",string)
+                            # print("FAIL:",string)
 
                             comments[port_name].append(string)
                         j = j + 1
                 else:
                     get_comment = False
 
-    print(comments)
+    # print(comments)
 
     if len(comments) > 0 and get_comment == True:
         string = ""
@@ -127,14 +127,14 @@ def get_comment(data,soup_list,):
         Globals.RESULT_DATA[str(data[0])] = ""
 
         # for item in Globals.ALL_KEYWORDS:
-        #     print(item)
+        #     # print(item)
 
     return    
 
 
 def get_value(data,soup_list):
     if "Comment" in Globals.CURRENT_TABLE:
-        print("select comment")
+        # print("select comment")
         get_comment(data,soup_list)
     else:
         get_result(data,soup_list)

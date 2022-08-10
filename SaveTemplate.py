@@ -11,7 +11,7 @@ def update_pos(table, cols, tab_idx, tab, begin_idx=0):
      cur_row = int((table[5].split(","))[0])
      cur_cell = int((table[5].split(","))[1])
      for i,col in enumerate(cols):
-          # print(col[0],":",begin_idx,"/",i,":",str(tab_idx[tab]) , "," , str (cur_row) , "," , str(cur_cell))
+          # # print(col[0],":",begin_idx,"/",i,":",str(tab_idx[tab]) , "," , str (cur_row) , "," , str(cur_cell))
           if i >= begin_idx:
                pos = str(tab_idx[tab]) + "," + str (cur_row) + "," + str(cur_cell)
                sql = "UPDATE `files` SET `File_Pos` = \"" + pos + "\" WHERE `File_ID` = " + str(col[0])
@@ -30,12 +30,12 @@ def save_table_content(word,template_id):
     tables = word.ww.tables
     for i,table in enumerate(tables):
         text_list=[]
-        print(i)
+        # print(i)
         max_col=0
         # if i == 14:
         for r in range(0, len(table.rows)):
         #     for c in range(0, len(table.rows[r].cells)):
-        #         print(r,",",c,":",table.cell(r,c).text)
+        #         # print(r,",",c,":",table.cell(r,c).text)
             if r == 0:
                 # sql="INSERT INTO `tables` (`Table_ID`,`Globals.CURRENT_TABLE`,`Template_ID`) VALUES ("+str(10000+i)+",\""+table.cell(0,0).text+"\",1)"
                 sql="INSERT INTO `tables` (`Table_Name`,`Table_word_id`,`Template_ID`) VALUES (\""+table.cell(0,0).text+"\","+str(i) + "," + str(template_id) +")"
@@ -52,7 +52,7 @@ def save_table_content(word,template_id):
             if r < 10:
                 for c in range(0, len(table.rows[r].cells)):
                     if c < 10:
-                    # print(table.cell(r,c).text)
+                    # # print(table.cell(r,c).text)
                         if table.cell(r,c).text != "":
                             text_list.append(table.cell(r,c).text)
 
@@ -60,7 +60,7 @@ def save_table_content(word,template_id):
         sql="INSERT INTO `content` (`Content_Text`, `Content_Row`, `Content_Col`, `Table_ID`) VALUES (\"" + text + "\"," + str(len(table.rows)) + "," + str(max_col) + "," + str(id) + ")"
         DBProcess.excute_SQL(sql)
         text_list.clear()
-        print("=======================================================")
+        # print("=======================================================")
 
 def del_old_data(template_ID):
     select_table_sql="SELECT `Table_ID` FROM `Tables` WHERE `Template_ID`=" + str(template_ID)
@@ -75,10 +75,10 @@ def del_old_data(template_ID):
 def add_tab(template_id):
     item_list = DBProcess.getTable(Globals.TYPELIST)
     for item in item_list:
-        print(item)
+        # print(item)
         table_keys = item[4].split(",")
         tab_idx = Commonlib.findTable(table_keys,template_id)
-        print(tab_idx)
+        # print(tab_idx)
         table_id = []
         # tab_str = ",".join(tab_idx)
         for idx in tab_idx:
@@ -103,9 +103,9 @@ def add_tab(template_id):
 if __name__ == '__main__':
     Globals.initialize(sys.argv)
     
-    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     template_id = Commonlib.get_template_id(Globals.TEMPLATE_TYPE)
-    print(template_id)
+    # print(template_id)
     DBProcess.connectDB()
     # del_old_data(template_id)
     DBProcess.close_all()
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     # DBProcess.connectDB()
     # item_list = DBProcess.getTable(Globals.TYPELIST)
     # # for item in item_list:
-    # #     print(item)
+    # #     # print(item)
     # DBProcess.close_all()
     
-    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))

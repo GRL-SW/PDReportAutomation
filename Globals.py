@@ -23,7 +23,7 @@ def initialize(param):
         start_time = param[len(param) - 1]
     else:
         start_time = datetime.now().strftime('_%Y%m%d_%H%M%S')
-    # print("report_info:",report_info)
+    # # print("report_info:",report_info)
 
     global ALL_FOLDER
     global INPUT_PATH
@@ -61,7 +61,7 @@ def initialize(param):
     TYPELIST = param[6].split("%")
     REPORT_INFO = param[7].split(",")
     TEMPLATE_WORD_NAME = "\\\\192.168.2.104\\Public\\Software\\07_PDReportAutomation\\pd compliance new\\blank template\\" + TEMPLATE_TYPE
-    # print(TEMPLATE_WORD_NAME)
+    # # print(TEMPLATE_WORD_NAME)
     DATA_FILE = []
     SELECT_TABLES = []
     ALL_KEYWORDS = []
@@ -70,11 +70,15 @@ def initialize(param):
 
     if len(param) == 9:
         START_TIME = param[8]
-        REPORT_NAME = FINAL_PATH + "\\report\\PD\\" + START_TIME + "_"+ TEMPLATE_TYPE
+        file_name = TEMPLATE_TYPE.replace("DUT model name",REPORT_INFO[5]).replace("yyyy_mm_dd",datetime.strptime(REPORT_INFO[13], "%Y/%m/%d").strftime('%Y_%m_%d'))
+        # print(file_name)
+        REPORT_NAME = FINAL_PATH + "\\report\\PD\\" + file_name
         LOG_FILE = PROJECT_NAME + "_" + START_TIME
     else:
         START_TIME = datetime.now().strftime('%Y%m%d_%H%M%S')
-        REPORT_NAME = FINAL_PATH + "\\report\\PD\\" + datetime.now().strftime('%Y%m%d_%H%M%S') + "_"+ TEMPLATE_TYPE
+        file_name = TEMPLATE_TYPE.replace("DUT model name",REPORT_INFO[5]).replace("yyyy_mm_dd",datetime.strptime(REPORT_INFO[13], "%Y/%m/%d").strftime('%Y_%m_%d'))
+        # print(file_name)
+        REPORT_NAME = FINAL_PATH + "\\report\\PD\\" + datetime.now().strftime('%Y%m%d_%H%M%S') + "_"+ file_name
         LOG_FILE = PROJECT_NAME + "_" + datetime.now().strftime('%Y%m%d_%H%M%S')
 
     sys.stdout = Commonlib.PrintLog(LOG_FILE)

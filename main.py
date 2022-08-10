@@ -40,21 +40,24 @@ if __name__ == '__main__':
     Globals.initialize(param_list)
     
     original_stdout = sys.stdout
-    # log_file = Globals.PROJECT_NAME + "_" + Globals.START_TIME 
-    # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # # log_file = Globals.PROJECT_NAME + "_" + Globals.START_TIME 
+    # # # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(param_list)
-    # for param in param_list:
-    #     print(param)
+    # print(param_list)
+    # # for param in param_list:
+    # #     # print(param)
     Gen_Report()
+    
     end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
-    # # ============ Testing Code ============
-    for idx in Globals.RESULT_DATA:
-        print(idx,":",Globals.RESULT_DATA[idx])
+    # # # ============ Testing Code ============
+    # for idx in Globals.RESULT_DATA:
+    #     print(idx,":",Globals.RESULT_DATA[idx])
+    # # print("56239:",Globals.RESULT_DATA["56239"])
+    # # for idx in Globals.ALL_FOLDER:
+    # #     # print(idx,":",Globals.ALL_FOLDER[idx])
 
-    # for idx in Globals.ALL_FOLDER:
-    #     print(idx,":",Globals.ALL_FOLDER[idx])
+
 
     print(start_time,":",end_time)
 

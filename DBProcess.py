@@ -13,7 +13,7 @@ def connectDB():
     cursor=conn.cursor()
     Globals.DATABASE_CONN=conn
     Globals.DATABASE_CURSOR=cursor
-    print("Connect End")
+    # print("Connect End")
 
 def excute_SQL(sql):
     Globals.DATABASE_CURSOR.execute(sql)
@@ -28,10 +28,10 @@ def close_all():
 def getTable(TypeList):
     # port_cnt = int(TypeList[5])
     sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8";
-    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  AND `Item_ID` in (904)"
-    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` BETWEEN 895 AND 904"
+    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  AND `Item_ID` in (829)"
+    # sql="SELECT * FROM `testitems` WHERE `Type_ID` = 8  and `Item_ID` BETWEEN 860 AND 863"
     relist = excute_SQL(sql)
-    print(relist)
+    # print(relist)
     tables=[]
     del_tables = []
     get_table=True 
@@ -39,21 +39,21 @@ def getTable(TypeList):
     for table in relist:
         get_table=True
         noteList = table[6].split('/')
-        # print(table)
+        # # print(table)
         if noteList[0] != Globals.PORT_NUM and noteList[0] != '':
-            # print("not get:port number different")
+            # # print("not get:port number different")
             get_table=False
         
         if noteList[1] not in Globals.TEMPLATE_TYPE:
-            # print("not get:not pd compliance")
+            # # print("not get:not pd compliance")
             get_table=False
         
         for i in range(1,len(TypeList)):
             if TypeList[i].strip() not in noteList[i+2].strip() and noteList[i].strip()!='' and TypeList[i].strip() != '':
-                # print("not get")
+                # # print("not get")
                 get_table=False
 
-        # print(get_table)
+        # # print(get_table)
 
         # if port_cnt != 4:
         #     for i,port in enumerate(port_name):
@@ -65,7 +65,7 @@ def getTable(TypeList):
         # else:
         #     del_tables.append(table)
 
-    # print(del_tables)
+    # # print(del_tables)
 
         # tables.append(table)
     
@@ -88,7 +88,7 @@ def getFields(table_idx):
 
 def get_select_result(select_col, table ,rule_col, target):
     sql = "SELECT " + select_col + "FROM " + table + " WHERE " + rule_col + "=" + target
-    print(sql)
+    # print(sql)
     relist = excute_SQL(sql)
     
     return relist

@@ -24,7 +24,7 @@ def getValue(data_list):
             day_year = (review_date_tmp.split(" "))[1]
             month = (review_date_tmp.split(" "))[0]
             review_date = Month_dic_detail[month] + " " + day_year
-            print("new:",review_date)
+            # print("new:",review_date)
             Globals.RESULT_DATA[str(data[0])] = review_date
 
         elif data[1] == "[Project Number]":
@@ -67,5 +67,5 @@ def getValue(data_list):
         elif data[1] == "[Test engineer]":
             rule = "\"" + Globals.REPORT_INFO[0] + "\""
             re_list = DBProcess.get_select_result("*","member","Member_Name",rule)
-            print(re_list[0][4])
+            # print(re_list[0][4])
             Globals.RESULT_DATA[str(data[0])] = re_list[0][4]
