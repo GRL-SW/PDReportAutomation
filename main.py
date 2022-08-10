@@ -28,11 +28,11 @@ def Gen_Report():
 
     GetResult.save_pos_value(Globals.OUTPUT_FILE)
 
-    # print("Updating word...")
-    # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    # DBProcess.connectDB() 
-    # UpdateFile.updateWord(Globals.OUTPUT_FILE)
-    # DBProcess.close_all()
+    print("Updating word...")
+    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    DBProcess.connectDB() 
+    UpdateFile.updateWord(Globals.OUTPUT_FILE)
+    DBProcess.close_all()
 
 
 if __name__ == '__main__':

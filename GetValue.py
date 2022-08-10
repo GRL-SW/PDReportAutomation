@@ -11,7 +11,7 @@ def value_main(data_list,path):
 
     for data in data_list:
         # if data[0] == 56239:
-            # print(data[0],":",data[1])
+            print(data[0],":",data[1])
             # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # reload = False
             file_list = []
@@ -46,8 +46,8 @@ def value_main(data_list,path):
             else:
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
                 
-            for file in file_list:
-                print("file:",file)
+            # for file in file_list:
+            #     print("file:",file)
 
             if Globals.DATA_FILE != file_list:
                 # print("Reload data")
@@ -75,5 +75,5 @@ def value_main(data_list,path):
                 elif Globals.CURRENT_TYPE == "TXT":
                     txtValue.get_value(data,file_list)
 
-            # print("=====================================================================")
+            print("=====================================================================")
 
