@@ -12,10 +12,10 @@ import ItemScripts.C2Functions as C2Functions
 import ItemScripts.MQPFunctions as MQPFunctions
 import ItemScripts.Inrush as Inrush
 
-def get_html_value(data):
+def get_html_value(data,reload):
     
     if "Ellisys Explorer" in Globals.CURRENT_TABLE:
-        EllisysFunctions.get_value(data,Globals.DATA_FILE,Globals.SOUP_LIST)
+        EllisysFunctions.get_value(data,Globals.DATA_FILE,Globals.SOUP_LIST,reload)
     elif "Lecroy" in Globals.CURRENT_TABLE:
         LecroyFunctions.get_value(data,Globals.DATA_FILE)
     elif "C2" in Globals.CURRENT_TABLE:

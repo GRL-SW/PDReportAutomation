@@ -168,7 +168,7 @@ def get_comment(data,file_list):
             Globals.RESULT_DATA[str(data[0])] = ""
     return
 
-def get_value(data,file_list,soup_list):
+def get_value(data,file_list,soup_list,reload):
     if "Comment" in Globals.CURRENT_TABLE:
         get_comment(data,file_list)
     else:

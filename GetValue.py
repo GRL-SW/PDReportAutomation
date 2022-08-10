@@ -4,6 +4,7 @@ import ValueScripts.HtmlValue as HtmlValue
 import ValueScripts.PetrptValue as PetrptValue
 import ValueScripts.txtValue as txtValue
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 def value_main(data_list,path):
     current_sheet = ""
@@ -11,6 +12,7 @@ def value_main(data_list,path):
     for data in data_list:
         # if data[0] == 56239:
             # print(data[0],":",data[1])
+            # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # reload = False
             file_list = []
             # sheet=""
@@ -44,12 +46,11 @@ def value_main(data_list,path):
             else:
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
                 
-            # for file in file_list:
-            #     # print("file:",file)
-            #     # print("Global:",Globals.DATA_FILE)
+            for file in file_list:
+                print("file:",file)
 
             if Globals.DATA_FILE != file_list:
-                # # print("Reload data")
+                # print("Reload data")
                 reload = True
                 Globals.DATA_FILE = file_list 
                 Globals.SOUP_LIST.clear()
@@ -66,7 +67,7 @@ def value_main(data_list,path):
                                 html_doc = f.read()
                             soup = BeautifulSoup(html_doc, 'html.parser')    
                             Globals.SOUP_LIST.append(soup)
-                    HtmlValue.get_html_value(data)
+                    HtmlValue.get_html_value(data,reload)
            
                 elif Globals.CURRENT_TYPE == "PETRPT":
                     PetrptValue.get_value(data,file_list)

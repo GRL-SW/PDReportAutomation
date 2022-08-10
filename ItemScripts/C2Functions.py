@@ -50,7 +50,7 @@ def get_result(data,soup_list):
                     break
         else:
             # # print(i,":",data[2],":out!!!!!!!")
-            pass
+            break
 
     return
 
@@ -77,6 +77,9 @@ def get_comment(data,soup_list,):
             return
         else:
             target_table = tables[3]
+
+        if data[2] not in target_table.text:
+            break
         folder_name_list = Globals.DATA_FILE[i].split("\\")
         port_name = folder_name_list[len(folder_name_list)-3]
 

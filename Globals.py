@@ -28,26 +28,32 @@ def initialize(param):
     global ALL_FOLDER
     global INPUT_PATH
     global FINAL_PATH
+
     global REPORT_NAME
     global PROJECT_NAME
+    global TEMPLATE_WORD_NAME
+    global LOG_FILE
+
     global TYPELIST
+    global REPORT_INFO
     global TEMPLATE_TYPE
     global PORT_NUM
-    global TEMPLATE_WORD_NAME
+    global START_TIME
+
     global RESULT_DATA
     global DATA_FILE
     global SELECT_TABLES
-    global REPORT_NAME
+    
     global ALL_KEYWORDS
     global PATH_KEY
     global SOUP_LIST
-    global START_TIME
-    global LOG_FILE
-    global REPORT_INFO
-
-    global TABLES
+    
     global CURRENT_TABLE
     global CURRENT_TYPE
+    global SUMMARY_LIST
+    global DETAIL_LIST
+
+    global TABLES
     global FIELDS
     global OUTPUT_FILE
 
@@ -62,11 +68,16 @@ def initialize(param):
     REPORT_INFO = param[7].split(",")
     TEMPLATE_WORD_NAME = "\\\\192.168.2.104\\Public\\Software\\07_PDReportAutomation\\pd compliance new\\blank template\\" + TEMPLATE_TYPE
     # # print(TEMPLATE_WORD_NAME)
+    
     DATA_FILE = []
     SELECT_TABLES = []
     ALL_KEYWORDS = []
     PATH_KEY = ""
+    CURRENT_TYPE = ""
+    CURRENT_TABLE = ""
     SOUP_LIST = []
+    SUMMARY_LIST = []
+    DETAIL_LIST = []
 
     if len(param) == 9:
         START_TIME = param[8]

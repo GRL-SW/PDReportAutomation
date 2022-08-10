@@ -93,7 +93,7 @@ def save_pos_value(word):
                     getPos(table,Globals.FIELDS)
 
                     path = Commonlib.getPath(Globals.INPUT_PATH,table[2], Globals.ALL_FOLDER)
-                    # print(path)
+                    print(path)
 
                     Globals.CURRENT_TYPE = table[3]
 
