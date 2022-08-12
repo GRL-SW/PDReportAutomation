@@ -51,7 +51,7 @@ def getTable(TypeList):
         for i in range(1,len(TypeList)):
             if noteList[i+2].strip() not in TypeList[i].strip() and noteList[i+2].strip()!='' and TypeList[i].strip() != '':
                 # print("not get")
-                print(TypeList[i],":",noteList[i+2])
+                # print(TypeList[i],":",noteList[i+2])
                 get_table=False
 
         # # print(get_table)
