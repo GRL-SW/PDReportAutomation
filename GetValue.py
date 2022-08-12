@@ -74,6 +74,10 @@ def value_main(data_list,path):
 
                 elif Globals.CURRENT_TYPE == "TXT":
                     txtValue.get_value(data,file_list)
+            else:
+                print("Files not found")
 
             print("=====================================================================")
+            
+
 

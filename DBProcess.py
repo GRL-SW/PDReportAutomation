@@ -39,18 +39,19 @@ def getTable(TypeList):
     for table in relist:
         get_table=True
         noteList = table[6].split('/')
-        # # print(table)
+        # print(table)
         if noteList[0] != Globals.PORT_NUM and noteList[0] != '':
-            # # print("not get:port number different")
+            # print("not get:port number different")
             get_table=False
         
         if noteList[1] not in Globals.TEMPLATE_TYPE:
-            # # print("not get:not pd compliance")
+            # print("not get:not pd compliance")
             get_table=False
         
         for i in range(1,len(TypeList)):
-            if TypeList[i].strip() not in noteList[i+2].strip() and noteList[i+2].strip()!='' and TypeList[i].strip() != '':
-                # # print("not get")
+            if noteList[i+2].strip() not in TypeList[i].strip() and noteList[i+2].strip()!='' and TypeList[i].strip() != '':
+                # print("not get")
+                print(TypeList[i],":",noteList[i+2])
                 get_table=False
 
         # # print(get_table)
