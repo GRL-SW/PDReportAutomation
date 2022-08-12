@@ -51,8 +51,8 @@ if __name__ == '__main__':
     end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
     # # # ============ Testing Code ============
-    # for idx in Globals.RESULT_DATA:
-    #     print(idx,":",Globals.RESULT_DATA[idx])
+    for idx in Globals.RESULT_DATA:
+        print(idx,":",Globals.RESULT_DATA[idx])
     # # print("56239:",Globals.RESULT_DATA["56239"])
     # # for idx in Globals.ALL_FOLDER:
     # #     # print(idx,":",Globals.ALL_FOLDER[idx])

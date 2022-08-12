@@ -59,7 +59,11 @@ def getValue(data_list):
             elif  "Compliance" in Globals.REPORT_INFO[11]:
                 Globals.RESULT_DATA[str(data[0])] = "PD3.1 Compliance Tests"
         elif data[1] == "[Test Result]":
-            pass
+            Globals.RESULT_DATA[str(data[0])] = "PASS"
+            for idx in Globals.RESULT_DATA:
+                if Globals.RESULT_DATA[idx].upper() == "FAIL":
+                    Globals.RESULT_DATA[str(data[0])] = "FAIL"
+                    break
         elif data[1] == "[Receive Date]":
             Globals.RESULT_DATA[str(data[0])] = Globals.REPORT_INFO[12]
         elif data[1] == "[Test Completion date]":

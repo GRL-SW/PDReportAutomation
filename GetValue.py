@@ -10,7 +10,7 @@ def value_main(data_list,path):
     current_sheet = ""
 
     for data in data_list:
-        # if data[0] == 56239:
+        # if data[0] == 55584:
             print(data[0],":",data[1])
             # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # reload = False

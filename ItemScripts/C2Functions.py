@@ -19,6 +19,7 @@ def get_rawdata(soup):
 
 def get_result(data,soup_list):
     for i,soup in enumerate(soup_list):
+        # print(Globals.DATA_FILE[i])
         tables = soup.find_all('table')
         
         if len(tables) < 4:
@@ -34,23 +35,30 @@ def get_result(data,soup_list):
         #         # print(tr.text.replace("\n","###"))
 
         if data[2] in target_table.text:
-            # # print(i,":",data[2],":in")
+            # print(i,":",data[2],":in")
             for tr in tr_list:
                 # # print(tr.text)
                 # # print(tr.text,":",data[2])
                 if data[2] in tr.text:
-                    if Globals.RESULT_DATA[str(data[0])] == "FAIL":
+                    # print("Current is ",Globals.RESULT_DATA[str(data[0])])
+                    
+                    if Globals.RESULT_DATA[str(data[0])] == "FAIL" or Globals.RESULT_DATA[str(data[0])] == "N/A":
                         if "PASS" in tr.text:
                             Globals.RESULT_DATA[str(data[0])] = "PASS"
+                    elif Globals.RESULT_DATA[str(data[0])] == "PASS":
+                        continue
                     else:
                         if "PASS" in tr.text:
                             Globals.RESULT_DATA[str(data[0])] = "PASS"
                         elif "FAIL" in tr.text:
                             Globals.RESULT_DATA[str(data[0])] = "FAIL"
+
+                    # print("Update Value is ",Globals.RESULT_DATA[str(data[0])])
+                    
                     break
-        else:
-            # # print(i,":",data[2],":out!!!!!!!")
-            break
+        # else:
+            # print(i,":",data[2],":out!!!!!!!")
+
 
     return
 
@@ -68,7 +76,7 @@ def chk_keyword(tr):
 
     return stop_loop,item_name
 
-def get_comment(data,soup_list,):
+def get_comment(data,soup_list):
     comments = {}
     get_comment = False
     for i,soup in enumerate(soup_list):
