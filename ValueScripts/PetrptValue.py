@@ -26,17 +26,18 @@ def build_info(pure_text,data):
             elif start_getvalue == True:
                 detail_info.append(text)
         else:
-            if "Pass - " in text or "FAIL - " in text and data[2] in text:
-                summary_info = text
-    
+            if data[2] in text:
+                if "Pass - " in text or "FAIL - " in text:
+                    summary_info = text
+        
     # # print("-----DETAIL-----")           
     # for text in detail_info:
     #     # print(text)
 
-    # # print("-----SUMMARY-----")
-    # # print(summary_info)
+    # print("-----SUMMARY-----")
+    # print(summary_info)
 
-    # # print("***************************************************")
+    # print("***************************************************")
 
     return detail_info,summary_info
 
@@ -64,7 +65,7 @@ def get_result(data,file_list):
     result_list = []
     summary_get = False
     for file in file_list:
-        # # print(file)
+        # print(file)
         pure_text = get_pure_text(file)
         result = "N/A"
         detail_info,summary_info = build_info(pure_text,data)
