@@ -28,11 +28,11 @@ def Gen_Report():
 
     GetResult.save_pos_value(Globals.OUTPUT_FILE)
 
-    print("Updating word...")
-    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    DBProcess.connectDB() 
-    UpdateFile.updateWord(Globals.OUTPUT_FILE)
-    DBProcess.close_all()
+    # print("Updating word...")
+    # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    # DBProcess.connectDB() 
+    # UpdateFile.updateWord(Globals.OUTPUT_FILE)
+    # DBProcess.close_all()
 
 
 if __name__ == '__main__':
@@ -51,8 +51,8 @@ if __name__ == '__main__':
     end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
     # # # ============ Testing Code ============
-    for idx in Globals.RESULT_DATA:
-        print(idx,":",Globals.RESULT_DATA[idx])
+    # for idx in Globals.RESULT_DATA:
+    #     print(idx,":",Globals.RESULT_DATA[idx])
     # # print("56239:",Globals.RESULT_DATA["56239"])
     # # for idx in Globals.ALL_FOLDER:
     # #     # print(idx,":",Globals.ALL_FOLDER[idx])
