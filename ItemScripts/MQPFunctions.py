@@ -101,7 +101,7 @@ def get_result(data,file_list):
     set_result = False
 
     for file in file_list:
-        # print(file)
+        print(file)
         set_result = False
         
         with open(file, 'rb') as f:
@@ -112,14 +112,19 @@ def get_result(data,file_list):
         keyword_line_list,result_line_list,table_line_list = get_target_lines(data,h4_dict,h4_lines,table_lines)
         # # print(keyword_line_list,":",result_line_list)
         result_list_tmp = get_result_list(h6_dict,keyword_line_list,result_line_list)
-        
+        print("result_tmp",result_list_tmp)
         for rlt in result_list_tmp:
             if "FAIL" == rlt:
                 result_list.append("FAIL")
                 set_result = True
+            elif "PASS" == rlt:
+                result_list.append("PASS")
+                set_result = True
+            
                 break
-        if set_result == False:
-            result_list.append("PASS")
+        
+
+    print(result_list)
 
     if "PASS" in result_list:
         Globals.RESULT_DATA[str(data[0])] = "PASS"

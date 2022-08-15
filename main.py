@@ -38,6 +38,7 @@ def Gen_Report():
 if __name__ == '__main__':
     param_list = sys.argv
     Globals.initialize(param_list)
+    print(param_list)
     
     original_stdout = sys.stdout
     # # log_file = Globals.PROJECT_NAME + "_" + Globals.START_TIME 
@@ -51,8 +52,8 @@ if __name__ == '__main__':
     end_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
     # # # ============ Testing Code ============
-    for idx in Globals.RESULT_DATA:
-        print(idx,":",Globals.RESULT_DATA[idx])
+    # for idx in Globals.RESULT_DATA:
+        # print(idx,":",Globals.RESULT_DATA[idx])
     # # print("56239:",Globals.RESULT_DATA["56239"])
     # # for idx in Globals.ALL_FOLDER:
     # #     # print(idx,":",Globals.ALL_FOLDER[idx])

@@ -136,23 +136,26 @@ def get_comment(data,soup_list):
                             stop_loop,item_name = chk_keyword(tr_list[j])
                             string = tr_list[j].text.replace("\n\xa0 ","").replace("FAIL  \n&nbsp","").replace("\n","")                        
                             print("FAIL:",string)
+                            if string not in comments[port_name]:
+                                comments[port_name].append(string)
+                        j = j + 1   
 
-                            comments[port_name].append(string)
-                        j = j + 1      
-        
+    # print(comments)
+
     if len(comments) > 0:
         string = ""
         for folder in comments:
             if "2 Port" in Globals.CURRENT_TABLE and string == "":
                 string = "(" + folder+ ")" + "\n".join(comments[folder])
-            if "2 Port" in Globals.CURRENT_TABLE and string != "":
+            elif "2 Port" in Globals.CURRENT_TABLE and string != "":
                 string = string + "\n" + "(" + folder+ ")" + "\n".join(comments[folder])
             elif string == "":
                 string = "\n".join(comments[folder])
             else:
                 string = string + "\n".join(comments[folder]) + "\n"
 
-        
+        print(string)
+
         Globals.RESULT_DATA[str(data[0])] = "C2:\n" + string
     else:
         Globals.RESULT_DATA[str(data[0])] = ""
