@@ -2,6 +2,7 @@ from unittest import result
 import Globals
 from bs4 import BeautifulSoup
 from datetime import datetime
+import ValueScripts.HtmlCommonlib as HtmlCommonLib
 
 def get_result_list(data,soup_list):
     result_list = []
@@ -33,10 +34,16 @@ def get_result(data,soup_list):
     result_list = get_result_list(data,soup_list)
     if "PASS" not in result_list and "FAIL" not in result_list:
         return
-    elif "PASS" in result_list:
-        Globals.RESULT_DATA[str(data[0])] = "PASS"
+    elif "COMMON." not in data[2]:
+        if "PASS" in result_list:
+            Globals.RESULT_DATA[str(data[0])] = "PASS"
+        else:
+            Globals.RESULT_DATA[str(data[0])] = "FAIL"
     else:
-        Globals.RESULT_DATA[str(data[0])] = "FAIL"
+        if "FAIL" in result_list:
+            Globals.RESULT_DATA[str(data[0])] = "FAIL"
+        else:
+            Globals.RESULT_DATA[str(data[0])] = "PASS"
     return
 
 def chk_keyword(tr):
@@ -56,47 +63,8 @@ def chk_keyword(tr):
 def get_comment(data,soup_list):
     result_list = get_result_list(data,soup_list)
     print(result_list)
-    fail_comment_idx = []
-    current_port = ""
-    result_tmp = []
-    idx_tmp = []
-    for i,rl in enumerate(result_list):
-        if "2 Port" in Globals.CURRENT_TABLE:
-            folder_name_list = Globals.DATA_FILE[i].split("\\")
-            port_name = folder_name_list[len(folder_name_list)-3]
-            if current_port != port_name:
-                current_port = port_name
-                
-                if len(result_tmp)!= 0 and len(idx_tmp) != 0:
-                    # print("result temp:",result_tmp)
-                    # print("idx temp:",idx_tmp)
-                    if "PASS" not in result_tmp and "FAIL" in result_tmp:
-                        for idx,rt in enumerate(result_tmp):
-                            if rt == "FAIL":
-                                fail_comment_idx.append(idx_tmp[idx])
-                    result_tmp = []
-                    idx_tmp = []
-                    result_tmp.append(rl)
-                    idx_tmp.append(i)
-                else:
-                    result_tmp.append(rl)
-                    idx_tmp.append(i)
-            elif i == len(result_list) - 1:
-                result_tmp.append(rl)
-                idx_tmp.append(i)
-                # print("result temp:",result_tmp)
-                # print("idx temp:",idx_tmp)
-                if "PASS" not in result_tmp and "FAIL" in result_tmp:
-                    for idx,rt in enumerate(result_tmp):
-                        if rt == "FAIL":
-                            fail_comment_idx.append(idx_tmp[idx])
-            else:
-                result_tmp.append(rl)
-                idx_tmp.append(i)
-        else:
-            if rl == "FAIL":
-                fail_comment_idx.append(i)
-
+    
+    fail_comment_idx = fail_comment_idx = HtmlCommonLib.set_fail_idx(data,result_list)
     print(fail_comment_idx)
     
     comments = {}
@@ -118,12 +86,13 @@ def get_comment(data,soup_list):
         port_name = folder_name_list[len(folder_name_list)-3]
         # print(port_name)
         tr_list = target_table.find_all('tr')
+        port_dic = {"PA":"Port 1","PB":"Port 2"}
         for tr_idx,tr in enumerate(tr_list):
             if data[2] in tr.text:
                 if "FAIL" in tr.text:
                     j=tr_idx
                     if port_name not in comments.keys():
-                        comments[port_name] = []
+                        comments[port_dic[port_name]] = []
                     while j < len(tr_list):
                         stop_loop = False
                         if j != tr_idx:
@@ -136,8 +105,8 @@ def get_comment(data,soup_list):
                             stop_loop,item_name = chk_keyword(tr_list[j])
                             string = tr_list[j].text.replace("\n\xa0 ","").replace("FAIL  \n&nbsp","").replace("\n","")                        
                             print("FAIL:",string)
-                            if string not in comments[port_name]:
-                                comments[port_name].append(string)
+                            if string not in comments[port_dic[port_name]]:
+                                comments[port_dic[port_name]].append(string)
                         j = j + 1   
 
     # print(comments)

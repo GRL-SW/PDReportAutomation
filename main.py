@@ -58,8 +58,6 @@ if __name__ == '__main__':
     # # for idx in Globals.ALL_FOLDER:
     # #     # print(idx,":",Globals.ALL_FOLDER[idx])
 
-
-
     print(start_time,":",end_time)
 
     sys.stdout = original_stdout

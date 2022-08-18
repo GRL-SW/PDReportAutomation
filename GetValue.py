@@ -10,8 +10,11 @@ def value_main(data_list,path):
     current_sheet = ""
 
     for data in data_list:
-        # if data[0] == 55756:
+        # if data[0] != 53378:
+        #     continue
+        # else:
             print(data[0],":",data[1],":",data[2])
+            # print("A:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
             # reload = False
             file_list = []
@@ -45,9 +48,11 @@ def value_main(data_list,path):
                             file_list.append(f)
             else:
                 file_list = Commonlib.getTargetFile(path[0],data[1],Globals.CURRENT_TYPE)
+
+            # print("B:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 
-            # for file in file_list:
-            #     print("file:",file)
+            for file in file_list:
+                print("file:",file)
 
             if Globals.DATA_FILE != file_list:
                 # print("Reload data")
@@ -56,6 +61,8 @@ def value_main(data_list,path):
                 Globals.SOUP_LIST.clear()
             else:
                 reload = False
+
+            # print("C:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
             # ======= [Getting Value] =======
             if len(file_list) != 0:
@@ -67,8 +74,10 @@ def value_main(data_list,path):
                                 html_doc = f.read()
                             soup = BeautifulSoup(html_doc, 'html.parser')    
                             Globals.SOUP_LIST.append(soup)
+
+                    # print("D:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     HtmlValue.get_html_value(data,reload)
-           
+                    # print("E:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 elif Globals.CURRENT_TYPE == "PETRPT":
                     PetrptValue.get_value(data,file_list)
 
@@ -78,6 +87,8 @@ def value_main(data_list,path):
                 print("Files not found")
 
             print("=====================================================================")
+
+            # break
             
 
 
