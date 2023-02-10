@@ -83,47 +83,47 @@ def save_pos_value(word):
      
      for table in Globals.TABLES:
           DBProcess.connectDB()
-          try:
-               if table[0] > -1 and "Cover" not in table[1]:
-               
-                         Globals.CURRENT_TABLE = table[1]
-                         Globals.PATH_KEY = table[2]
-                         print(table)
-                         Globals.FIELDS = DBProcess.getFields(table[0])
-                         getPos(table,Globals.FIELDS)
-
-                         path = Commonlib.getPath(Globals.INPUT_PATH,table[2], Globals.ALL_FOLDER)
-                         print(path)
-
-                         Globals.CURRENT_TYPE = table[3]
-
-                         print("Get Value Start:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-
-                         for data in Globals.FIELDS:
-                              if "Comment" in Globals.CURRENT_TABLE:
-                                   item = data[2].split(",")
-                                   Globals.ALL_KEYWORDS.append(item[0])
-                              Globals.RESULT_DATA[str(data[0])] = "N/A"
-
-                         if len(path) != 0:
-                              GetValue.value_main(Globals.FIELDS,path)
-                         else:
-                              print("Path not found")
-
-
-                         print("Get Value End:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                         print("------------------------------------------------------------------------------")
-               elif "Cover" in table[1]:
+          # try:
+          if table[0] > -1 and "Cover" not in table[1]:
+          
+                    Globals.CURRENT_TABLE = table[1]
+                    Globals.PATH_KEY = table[2]
                     print(table)
                     Globals.FIELDS = DBProcess.getFields(table[0])
                     getPos(table,Globals.FIELDS)
-                    getCoverValue.getValue(Globals.FIELDS)
+
+                    path = Commonlib.getPath(Globals.INPUT_PATH,table[2], Globals.ALL_FOLDER)
+                    print(path)
+
+                    Globals.CURRENT_TYPE = table[3]
+
+                    print("Get Value Start:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+                    for data in Globals.FIELDS:
+                         if "Comment" in Globals.CURRENT_TABLE:
+                              item = data[2].split(",")
+                              Globals.ALL_KEYWORDS.append(item[0])
+                         Globals.RESULT_DATA[str(data[0])] = "N/A"
+
+                    if len(path) != 0:
+                         GetValue.value_main(Globals.FIELDS,path)
+                    else:
+                         print("Path not found")
+
+
+                    print("Get Value End:",datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print("------------------------------------------------------------------------------")
-          except Exception as e:
-               print("#############")
-               print(e)
-               print("#############")
-               pass   
+          elif "Cover" in table[1]:
+               print(table)
+               Globals.FIELDS = DBProcess.getFields(table[0])
+               getPos(table,Globals.FIELDS)
+               getCoverValue.getValue(Globals.FIELDS)
+               print("------------------------------------------------------------------------------")
+          # except Exception as e:
+          #      print("#############")
+          #      print(e)
+          #      print("#############")
+          #      pass   
           DBProcess.close_all()   
      return
          
