@@ -66,7 +66,7 @@ def initialize(param):
     PORT_NUM = param[5]
     TYPELIST = param[6].split("%")
     REPORT_INFO = param[7].split(",")
-    TEMPLATE_WORD_NAME = "\\\\192.168.2.104\\Public\\Report-Template-SW\\PowerDelivery\\" + TEMPLATE_TYPE
+    TEMPLATE_WORD_NAME = "\\\\192.168.2.104\\Public\\Report-Template-SW (勿刪)\\PowerDelivery\\" + TEMPLATE_TYPE
     # # print(TEMPLATE_WORD_NAME)
     
     DATA_FILE = []
